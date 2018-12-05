@@ -9,7 +9,3 @@ package demo.oo
 class ArrayElement1(override val contents: Array[String]) extends Element {
 
 }
-
-class Cat{
-
-}

@@ -11,7 +11,7 @@ import java.util.Date
   * @date 2018/12/02 
   */
 object FileMatcher {
-  private def filehere = (new File(".")).listFiles()
+  private def filehere = new File(".").listFiles()
 
 //  def fileEnding(query: String) =
 //    for(file <- filehere; if file.getName.endsWith(query))
@@ -79,9 +79,9 @@ object FileMatcher {
     * 在调用第一种函数时可以不用byNameAssert(() => xxx)直接byNameAssert(xxx)
     * @param predicaate
     */
-  def byNameAssert(predicaate:  => Boolean): Unit ={
-
-  }
+//  def byNameAssert(predicaate:  => Boolean): Unit ={
+//
+//  }
   def byNameAssert(predicaate: () => Boolean): Unit ={
 
   }

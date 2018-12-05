@@ -3,8 +3,9 @@ package demo
 /**
   * @author lichuanzhi
   * @version 1.0  scala没有@date 注解
+  * 私有主构造函数的创建 只需在主构造参数前加private 修饰符
   **/
-class Rational(n: Int, d: Int) {
+class Rational private (n: Int, d: Int) extends Ordered[Rational]{
 
   //除了字段和函数声明，其他代码均放在了主构造器里面。带类参数的才有主构造器
   require(d != 0, "分子不可为零")
@@ -13,12 +14,18 @@ class Rational(n: Int, d: Int) {
     * 必须添加两个字段才可以在add中访问，类参数实际上是没有生产字段的，默认字段和函数都是public的
     * 可直接通过初始化器将类参数赋值给成员变量
     * 这三个初始化器，将按照源码中的次序添加到主构造其中。g 必需在前，因为后面要用到
+    * 若主构造函数中参数带有 val 或 var关键字则该参数会变成类的属性，否则只是一个普通的参数
+    *
     */
   private val g = gcd(n.abs, d.abs)
   var numer: Int = n / g
   val denom: Int = d / g
 
-  //辅助构造器,辅助构造器之间的调用必需按源文件中的声明顺序
+  /**
+    * 辅助构造函数的定义中，必须首先都用其他构造函数（主/辅助）
+    * 辅助构造器,辅助构造器之间的调用必需按源文件中的声明顺序
+    */
+
   def this(n: Int) = this(n, 1)
 
 
@@ -52,4 +59,7 @@ class Rational(n: Int, d: Int) {
 
 
   override def toString: String = n + "/" + d
+
+  override def compare(that: Rational): Int =
+    (this.numer - that.denom) - (that.numer * this.denom)
 }
